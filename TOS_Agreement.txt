@@ -1,0 +1,77 @@
+MINDMAPAI TERMS OF SERVICE (TOS) AGREEMENT
+==========================================
+
+Effective Date: 29 April 2025
+
+This Terms of Service Agreement ("Agreement") is a legally binding contract between you ("User" or "Licensee") and JADEM REREKURA-TUI ("Licensor"), governing your access to and use of MindMapAI services, including all remote, SaaS, API, and web-based access (the "Service"). By accessing or using the Service, you agree to be bound by this Agreement. If you do not agree, you may not use the Service.
+
+1. ACCOUNT REGISTRATION AND ACCESS
+----------------------------------
+(a) Users must provide accurate, complete, and up-to-date information when registering for access. Falsifying information is grounds for immediate termination.
+(b) Access credentials (API keys, usernames, passwords) are confidential, non-transferable, and may not be shared. You are responsible for all activity under your account.
+(c) You must notify Licensor immediately of any unauthorized use, loss, or breach of your credentials.
+(d) Licensor reserves the right to refuse, suspend, or terminate any account at its sole discretion.
+
+2. ACCEPTABLE USE AND PROHIBITED CONDUCT
+----------------------------------------
+(a) You may not use the Service for any unlawful, harmful, fraudulent, infringing, or abusive purpose, including but not limited to:
+    - Violating any law, regulation, or third-party right (including intellectual property, privacy, or contractual rights);
+    - Transmitting, storing, or processing unlawful, harmful, offensive, or infringing content;
+    - Attempting to reverse engineer, discover, or extract proprietary algorithms, data, or trade secrets;
+    - Circumventing or attempting to circumvent security, access controls, or usage limits;
+    - Using bots, scrapers, or automated tools to access the Service except as expressly permitted;
+    - Using the Service to develop, train, or improve competing AI models or services;
+    - Interfering with or disrupting the Service, servers, or networks.
+(b) Any violation may result in immediate suspension or termination of access, and may be reported to authorities.
+
+3. DATA PROTECTION, PRIVACY, AND USER RIGHTS
+--------------------------------------------
+(a) Licensor processes personal data only as required to operate the Service, and in accordance with the New Zealand Privacy Act 2020, the European Union General Data Protection Regulation (GDPR), the California Consumer Privacy Act (CCPA), and other applicable laws.
+(b) Users whose data is subject to GDPR/CCPA have the following rights:
+    - Right to access, rectify, erase, restrict, or object to processing of their personal data;
+    - Right to data portability;
+    - Right to withdraw consent at any time (where applicable);
+    - Right to lodge a complaint with a supervisory authority.
+(c) Licensor implements appropriate technical and organizational measures to protect data against unauthorized access, loss, or disclosure.
+(d) Users must not upload, store, or process personal data of third parties without proper legal basis and compliance with all applicable laws.
+(e) In the event of a data breach, Licensor will notify affected users and regulators as required by law.
+
+4. OUTPUT, INTELLECTUAL PROPERTY, AND RESTRICTIONS
+---------------------------------------------------
+(a) All intellectual property rights in the Service and its outputs remain with Licensor. You are granted only a limited license to use outputs for your internal business purposes.
+(b) You may not sell, sublicense, distribute, or otherwise make available the outputs or Service to any third party without Licensor’s express written consent.
+(c) You may not use the Service or outputs to create derivative works, train competing AI, or for any purpose not expressly authorized.
+(d) All suggestions, feedback, or improvements you submit become the property of Licensor without compensation.
+
+5. SERVICE AVAILABILITY, CHANGES, AND SUPPORT
+---------------------------------------------
+(a) Licensor does not guarantee uninterrupted or error-free operation. Service may be modified, suspended, or discontinued at any time without notice.
+(b) Support, updates, and maintenance are provided at Licensor’s discretion unless otherwise agreed in writing.
+
+6. MONITORING, ENFORCEMENT, AND AUDIT
+-------------------------------------
+(a) Licensor reserves the right to monitor, audit, and log all use of the Service for compliance, security, and improvement.
+(b) Licensor may suspend, terminate, or restrict access at any time for any reason, including suspected abuse or violation of this Agreement.
+
+7. LIMITATION OF LIABILITY AND INDEMNITY
+----------------------------------------
+(a) TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, DATA, OR BUSINESS OPPORTUNITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE SERVICE, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+(b) USER AGREES TO INDEMNIFY, DEFEND, AND HOLD HARMLESS LICENSOR FROM AND AGAINST ANY AND ALL CLAIMS, DAMAGES, LOSSES, AND EXPENSES (INCLUDING REASONABLE ATTORNEYS’ FEES) ARISING OUT OF OR IN CONNECTION WITH USER’S USE OF THE SERVICE OR VIOLATION OF THIS AGREEMENT.
+
+8. DISPUTE RESOLUTION, GOVERNING LAW, AND JURISDICTION
+-------------------------------------------------------
+(a) This Agreement is governed by the laws of New Zealand, without regard to conflict of law principles.
+(b) The parties shall attempt to resolve disputes through good faith negotiation; if unresolved, disputes shall be submitted to mediation in New Zealand. If mediation fails, disputes shall be resolved exclusively by the courts of New Zealand.
+(c) Users outside New Zealand consent to the jurisdiction and venue of New Zealand courts.
+
+9. CHANGES TO THE AGREEMENT
+---------------------------
+Licensor may modify this Agreement at any time by posting the revised version on the Service or by notifying users. Continued use of the Service after changes constitutes acceptance of the new terms.
+
+10. ENTIRE AGREEMENT AND SEVERABILITY
+-------------------------------------
+This Agreement constitutes the entire agreement between the parties regarding the Service and supersedes all prior or contemporaneous understandings. If any provision is held invalid, the remainder remains in effect.
+
+---
+
+BY USING THE SERVICE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THIS AGREEMENT.

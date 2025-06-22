@@ -1,0 +1,6 @@
+# requirements_semantic_memory.txt
+chromadb
+sentence-transformers
+numpy
+# For FAISS support (CPU version):
+faiss-cpu; platform_system != 'Windows'

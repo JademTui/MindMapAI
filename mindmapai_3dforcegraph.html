@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MindMapAI 3D Force Graph</title>
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; background: #181c20; }
+    #3d-graph { width: 100vw; height: 100vh; }
+    #info {
+      position: absolute; top: 10px; left: 10px; color: #fff; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; z-index: 10;
+      font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px;
+    }
+  </style>
+  <!-- 3d-force-graph CDN -->
+  <script src="https://unpkg.com/3d-force-graph"></script>
+</head>
+<body>
+  <div id="info">
+    <b>MindMapAI 3D Force Graph</b><br>
+    <span>Drag, zoom, and click nodes to explore.<br>Node color = type; Lines = cross-links or hierarchy.<br>Data is a static snapshot. For dynamic linking, connect to your backend.</span>
+  </div>
+  <div id="3d-graph"></div>
+  <script>
+    // Example nodes and links for MindMapAI (expandable)
+    const nodes = [
+      { id: 'MindMapAI', group: 'root', val: 8 },
+      { id: 'modules', group: 'folder', val: 4 },
+      { id: 'agents', group: 'folder', val: 4 },
+      { id: 'dreamer_advanced', group: 'folder', val: 4 },
+      { id: 'core', group: 'folder', val: 4 },
+      { id: 'modules/dreamer.py', group: 'file', val: 2 },
+      { id: 'modules/level4_orchestrator.py', group: 'file', val: 2 },
+      { id: 'modules/base_entity.py', group: 'file', val: 2 },
+      { id: 'modules/coalition.py', group: 'file', val: 2 },
+      { id: 'modules/curiosity_engine.py', group: 'file', val: 2 },
+      { id: 'agents/agent_base.py', group: 'file', val: 2 },
+      { id: 'dreamer_advanced/orchestrator.py', group: 'file', val: 2 },
+      { id: 'modules/abstract/creative_engine.py', group: 'file', val: 1 },
+      { id: 'modules/cognition/integrated_cognitive_architecture.py', group: 'file', val: 1 },
+      { id: 'modules/language/functional_linguistics.py', group: 'file', val: 1 },
+      { id: 'modules/memory/autobiographical_memory.py', group: 'file', val: 1 },
+      { id: 'modules/reasoning/symbolic_reasoning.py', group: 'file', val: 1 },
+      { id: 'modules/self/self_awareness_loop.py', group: 'file', val: 1 },
+      { id: 'modules/self/self_representation.py', group: 'file', val: 1 },
+      { id: 'modules/sentience/archetype_mesh.py', group: 'file', val: 1 },
+      { id: 'modules/sentience/dreamnet.py', group: 'file', val: 1 },
+      { id: 'modules/theory/theory_of_mind.py', group: 'file', val: 1 },
+      { id: 'modules/subnetworks/imagination_node.py', group: 'file', val: 1 },
+      { id: 'modules/subnetworks/problem_solver.py', group: 'file', val: 1 },
+      { id: 'modules/subnetworks/symbolic_self.py', group: 'file', val: 1 }
+    ];
+    const links = [
+      // Hierarchy
+      { source: 'MindMapAI', target: 'modules' },
+      { source: 'MindMapAI', target: 'agents' },
+      { source: 'MindMapAI', target: 'dreamer_advanced' },
+      { source: 'MindMapAI', target: 'core' },
+      { source: 'modules', target: 'modules/dreamer.py' },
+      { source: 'modules', target: 'modules/level4_orchestrator.py' },
+      { source: 'modules', target: 'modules/base_entity.py' },
+      { source: 'modules', target: 'modules/coalition.py' },
+      { source: 'modules', target: 'modules/curiosity_engine.py' },
+      { source: 'modules', target: 'modules/abstract/creative_engine.py' },
+      { source: 'modules', target: 'modules/cognition/integrated_cognitive_architecture.py' },
+      { source: 'modules', target: 'modules/language/functional_linguistics.py' },
+      { source: 'modules', target: 'modules/memory/autobiographical_memory.py' },
+      { source: 'modules', target: 'modules/reasoning/symbolic_reasoning.py' },
+      { source: 'modules', target: 'modules/self/self_awareness_loop.py' },
+      { source: 'modules', target: 'modules/self/self_representation.py' },
+      { source: 'modules', target: 'modules/sentience/archetype_mesh.py' },
+      { source: 'modules', target: 'modules/sentience/dreamnet.py' },
+      { source: 'modules', target: 'modules/theory/theory_of_mind.py' },
+      { source: 'modules', target: 'modules/subnetworks/imagination_node.py' },
+      { source: 'modules', target: 'modules/subnetworks/problem_solver.py' },
+      { source: 'modules', target: 'modules/subnetworks/symbolic_self.py' },
+      { source: 'agents', target: 'agents/agent_base.py' },
+      { source: 'dreamer_advanced', target: 'dreamer_advanced/orchestrator.py' },
+      // Example cross-links (dependencies, imports, etc.)
+      { source: 'modules/dreamer.py', target: 'modules/base_entity.py' },
+      { source: 'modules/level4_orchestrator.py', target: 'modules/dreamer.py' },
+      { source: 'modules/level4_orchestrator.py', target: 'modules/coalition.py' },
+      { source: 'modules/curiosity_engine.py', target: 'modules/base_entity.py' },
+      { source: 'modules/coalition.py', target: 'modules/base_entity.py' },
+      { source: 'modules/dreamer.py', target: 'modules/curiosity_engine.py' },
+      { source: 'modules/dreamer.py', target: 'modules/coalition.py' },
+      { source: 'modules/dreamer.py', target: 'modules/level4_orchestrator.py' },
+      { source: 'modules/abstract/creative_engine.py', target: 'modules/dreamer.py' },
+      { source: 'modules/cognition/integrated_cognitive_architecture.py', target: 'modules/dreamer.py' },
+      { source: 'modules/language/functional_linguistics.py', target: 'modules/dreamer.py' },
+      { source: 'modules/memory/autobiographical_memory.py', target: 'modules/dreamer.py' },
+      { source: 'modules/reasoning/symbolic_reasoning.py', target: 'modules/dreamer.py' },
+      { source: 'modules/self/self_awareness_loop.py', target: 'modules/dreamer.py' },
+      { source: 'modules/self/self_representation.py', target: 'modules/dreamer.py' },
+      { source: 'modules/sentience/archetype_mesh.py', target: 'modules/dreamer.py' },
+      { source: 'modules/sentience/dreamnet.py', target: 'modules/dreamer.py' },
+      { source: 'modules/theory/theory_of_mind.py', target: 'modules/dreamer.py' },
+      { source: 'modules/subnetworks/imagination_node.py', target: 'modules/dreamer.py' },
+      { source: 'modules/subnetworks/problem_solver.py', target: 'modules/dreamer.py' },
+      { source: 'modules/subnetworks/symbolic_self.py', target: 'modules/dreamer.py' }
+    ];
+
+    const colorMap = {
+      root: '#ffb300',
+      folder: '#1976d2',
+      file: '#43a047',
+    };
+
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+      .graphData({ nodes, links })
+      .nodeAutoColorBy('group')
+      .nodeLabel(node => `<b>${node.id}</b><br>Type: ${node.group}`)
+      .nodeThreeObject(node => {
+        const THREE = window.THREE;
+        let obj;
+        if (node.group === 'root') {
+          obj = new THREE.Mesh(
+            new THREE.SphereGeometry(12),
+            new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+          );
+        } else if (node.group === 'folder') {
+          obj = new THREE.Mesh(
+            new THREE.SphereGeometry(7),
+            new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+          );
+        } else {
+          obj = new THREE.Mesh(
+            new THREE.BoxGeometry(6, 6, 6),
+            new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+          );
+        }
+        return obj;
+      })
+      .linkDirectionalParticles(2)
+      .linkDirectionalParticleSpeed(0.002)
+      .linkColor(() => '#aaa')
+      .backgroundColor('#181c20')
+      .onNodeClick(node => {
+        Graph.cameraPosition(
+          { x: node.x * 1.2, y: node.y * 1.2, z: node.z * 1.2 },
+          node,
+          1000
+        );
+      });
+  </script>
+</body>
+</html>

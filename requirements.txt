@@ -1,0 +1,15 @@
+# Dependencies for MindMap AI
+fastapi
+uvicorn
+requests
+python-dotenv
+pydantic
+twilio
+speechrecognition
+pyttsx3
+torch>=1.7.0
+sentencepiece
+spacy
+Pillow
+scikit-learn
+openai

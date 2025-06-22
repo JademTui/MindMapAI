@@ -1,0 +1,82 @@
+THIRD-PARTY SOFTWARE AND LICENSES FOR MINDMAPAI
+==============================================
+
+This file lists the major third-party open-source libraries used by MindMapAI, along with their primary license types. For complete license texts, see the official repositories or PyPI pages for each package.
+
+---
+
+# Main Application Dependencies
+
+- fastapi: MIT License
+  https://github.com/tiangolo/fastapi/blob/master/LICENSE
+
+- uvicorn: BSD License
+  https://github.com/encode/uvicorn/blob/master/LICENSE.md
+
+- requests: Apache 2.0 License
+  https://github.com/psf/requests/blob/main/LICENSE
+
+- python-dotenv: BSD License
+  https://github.com/theskumar/python-dotenv/blob/master/LICENSE
+
+- pydantic: MIT License
+  https://github.com/pydantic/pydantic/blob/main/LICENSE
+
+- twilio: MIT License
+  https://github.com/twilio/twilio-python/blob/main/LICENSE
+
+- speechrecognition: BSD License
+  https://github.com/Uberi/speech_recognition/blob/master/LICENSE.txt
+
+- pyttsx3: BSD License
+  https://github.com/nateshmbhat/pyttsx3/blob/master/LICENSE
+
+- torch (PyTorch): BSD License
+  https://github.com/pytorch/pytorch/blob/main/LICENSE
+
+- sentencepiece: Apache 2.0 License
+  https://github.com/google/sentencepiece/blob/master/LICENSE
+
+- spacy: MIT License
+  https://github.com/explosion/spaCy/blob/master/LICENSE
+
+- Pillow: HPND License
+  https://github.com/python-pillow/Pillow/blob/main/LICENSE
+
+- scikit-learn: BSD License
+  https://github.com/scikit-learn/scikit-learn/blob/main/COPYING
+
+- openai: MIT License
+  https://github.com/openai/openai-python/blob/main/LICENSE
+
+
+# Custom Search API
+
+- beautifulsoup4: MIT License
+  https://www.crummy.com/software/BeautifulSoup/
+
+
+# Local Scraper API
+
+- playwright: Apache 2.0 License
+  https://github.com/microsoft/playwright-python/blob/main/LICENSE.txt
+
+
+# Semantic Memory
+
+- chromadb: Apache 2.0 License
+  https://github.com/chroma-core/chroma/blob/main/LICENSE
+
+- sentence-transformers: Apache 2.0 License
+  https://github.com/UKPLab/sentence-transformers/blob/master/LICENSE.txt
+
+- numpy: BSD License
+  https://github.com/numpy/numpy/blob/main/LICENSE.txt
+
+- faiss-cpu: MIT License
+  https://github.com/facebookresearch/faiss/blob/main/LICENSE
+
+
+---
+
+This list is provided for compliance and attribution purposes. Please refer to the official repositories for the most up-to-date license information and full license texts. If you distribute MindMapAI, you must comply with the license terms of these third-party components.

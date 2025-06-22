@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MindMapAI 3D Force Graph</title>
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; background: #181c20; }
+    #3d-graph { width: 100vw; height: 100vh; }
+    #info {
+      position: absolute; top: 10px; left: 10px; color: #fff; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; z-index: 10;
+      font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px;
+    }
+  </style>
+  <!-- THREE.js CDN (required for custom node rendering) -->
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+  <!-- 3d-force-graph CDN -->
+  <script src="https://unpkg.com/3d-force-graph"></script>
+</head>
+<body>
+  <div id="info">
+    <b>MindMapAI 3D Mind Map</b><br>
+    <span>Drag, zoom, and click nodes to explore.<br>Node color = type; Lines = cross-links or hierarchy.<br>Data is loaded from <code>mindmap_hierarchy.json</code> and <code>mindmap_crosslinks.json</code>.<br>
+    If you see nothing, use the file upload below to load exported JSON manually.</span>
+  </div>
+  <div id="3d-graph"></div>
+  <div id="file-upload" style="display:none; position:fixed; bottom:24px; right:24px; background:rgba(24,28,32,0.97); color:#fff; padding:18px 22px 14px 22px; border-radius:12px; box-shadow:0 2px 16px #0008; z-index:1000; min-width:320px; font-size:15px;">
+    <b>Manual Upload:</b><br>
+    Hierarchy JSON: <input type="file" id="hierarchy-input" accept=".json"><br>
+    Crosslinks JSON: <input type="file" id="crosslinks-input" accept=".json"><br>
+    <span style="color:#ffb300; font-size:13px;">(Select both files to render the mindmap)</span>
+  </div>
+  <script>
+    // --- Dynamic MindMap Loader ---
+    const colorMap = {
+      root: '#ffb300',
+      folder: '#1976d2',
+      file: '#43a047',
+    };
+    let Graph = null;
+
+    // Recursively flatten hierarchy into nodes/links
+    function flattenHierarchy(node, parentId = null, nodes = [], links = []) {
+      const id = node.path === '' ? node.name : node.path.replace(/\\/g, '/');
+      nodes.push({ id, group: node.type === 'directory' ? (parentId === null ? 'root' : 'folder') : 'file', val: node.type === 'directory' ? (parentId === null ? 8 : 4) : 2, label: node.name });
+      if (parentId) links.push({ source: parentId, target: id });
+      if (node.children && node.children.length) {
+        node.children.forEach(child => flattenHierarchy(child, id, nodes, links));
+      }
+      return { nodes, links };
+    }
+
+    // Load and render the mindmap
+    function renderMindmap(hierarchy, crosslinks) {
+      console.log('Loaded hierarchy:', hierarchy);
+      console.log('Loaded crosslinks:', crosslinks);
+      const { nodes, links } = flattenHierarchy(hierarchy);
+      console.log('Flattened nodes:', nodes);
+      console.log('Flattened links (before crosslinks):', links);
+      // Add cross-link edges (imports)
+      if (crosslinks && crosslinks.imports) {
+        crosslinks.imports.forEach(([from, to]) => {
+          // Only add links between files in our node set
+          const fromId = from.replace(/\\/g, '/');
+          let toId = to.replace(/\\/g, '/');
+          // Try to resolve relative imports to file paths
+          // For now, just add if the target exists as a node
+          if (nodes.some(n => n.id === toId)) {
+            links.push({ source: fromId, target: toId, crosslink: true });
+          }
+        });
+      }
+      console.log('All links (after crosslinks):', links);
+      if (!nodes.length) {
+        alert('No nodes found in the hierarchy. Check your mindmap_hierarchy.json!');
+        console.error('No nodes found in the hierarchy.');
+        return;
+      }
+      if (!Graph) {
+        Graph = ForceGraph3D()(document.getElementById('3d-graph'));
+      }
+      Graph.graphData({ nodes, links })
+        .nodeAutoColorBy('group')
+        .nodeLabel(node => `<b>${node.id}</b><br>Type: ${node.group}`)
+        .nodeThreeObject(node => {
+          const THREE = window.THREE;
+          let obj;
+          if (node.group === 'root') {
+            obj = new THREE.Mesh(
+              new THREE.SphereGeometry(12),
+              new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+            );
+          } else if (node.group === 'folder') {
+            obj = new THREE.Mesh(
+              new THREE.SphereGeometry(7),
+              new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+            );
+          } else {
+            obj = new THREE.Mesh(
+              new THREE.BoxGeometry(6, 6, 6),
+              new THREE.MeshLambertMaterial({ color: colorMap[node.group] || '#fff' })
+            );
+          }
+          return obj;
+        })
+        .linkDirectionalParticles(2)
+        .linkDirectionalParticleSpeed(0.002)
+        .linkColor(link => link.crosslink ? '#ffb300' : '#aaa')
+        .backgroundColor('#181c20')
+        .onNodeClick(node => {
+          Graph.cameraPosition(
+            { x: node.x * 1.2, y: node.y * 1.2, z: node.z * 1.2 },
+            node,
+            1000
+          );
+        });
+    }
+
+    // Try to fetch JSON files (works in some local setups, always works when served)
+    Promise.all([
+      fetch('mindmap_hierarchy.json').then(r => r.json()),
+      fetch('mindmap_crosslinks.json').then(r => r.json())
+    ]).then(([hierarchy, crosslinks]) => {
+      renderMindmap(hierarchy, crosslinks);
+    }).catch(() => {
+      // If fetch fails (file://), show manual upload
+      document.getElementById('file-upload').style.display = 'block';
+      let hierarchy = null, crosslinks = null;
+      function tryRender() {
+        if (hierarchy && crosslinks) renderMindmap(hierarchy, crosslinks);
+      }
+      document.getElementById('hierarchy-input').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+          hierarchy = JSON.parse(evt.target.result);
+          tryRender();
+        };
+        reader.readAsText(file);
+      });
+      document.getElementById('crosslinks-input').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+          crosslinks = JSON.parse(evt.target.result);
+          tryRender();
+        };
+        reader.readAsText(file);
+      });
+    });
+    // --- End Dynamic MindMap Loader ---
+  </script>
+</body>
+</html>
